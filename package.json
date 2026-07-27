@@ -1,24 +1,35 @@
 {
-	"name": "mineflayer-cicerone",
-	"version": "1.0.2",
-	"description": "An advanced plugin for navigation and action execution for Mineflayer.",
-	"main": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"keywords": [
-		"mineflayer",
-		"minecraft",
-		"bot",
-		"navigation",
-		"cicerone"
-	],
-	"author": "Lirihiwa",
-	"license": "MIT",
-	"peerDependencies": {
-		"mineflayer": "^4.37.1"
-	},
-	"dependencies": {
-		"vec3": "^0.2.0"
-	}
+    "name": "mineflayer-cicerone",
+    "version": "1.0.2",
+    "description": "An advanced plugin for navigation and action execution for Mineflayer.",
+    "main": "index.js",
+    "files": [
+        "index.js",
+        "lib"
+    ],
+    "scripts": {
+        "lint": "eslint . --fix",
+        "format": "prettier --write ."
+    },
+    "keywords": [
+        "mineflayer",
+        "minecraft",
+        "bot",
+        "navigation",
+        "cicerone"
+    ],
+    "author": "Lirihiwa",
+    "license": "MIT",
+    "peerDependencies": {
+        "mineflayer": "^4.37.1"
+    },
+    "devDependencies": {
+        "@eslint/js": "^10.0.1",
+        "eslint": "^10.8.0",
+        "prettier": "^3.9.6",
+		"globals": "^17.8.0"
+    },
+    "dependencies": {
+        "vec3": "^0.2.0"
+    }
 }
