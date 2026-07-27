@@ -1,5 +1,5 @@
 const Path = require('./lib/path');
-const {PathElement, ParentPathElement} = require('./lib/pathElement');
+const { PathElement, ParentPathElement } = require('./lib/pathElement');
 const injectMovement = require('./lib/movement');
 const injectDigging = require('./lib/digging');
 const injectPlacement = require('./lib/placement');
