@@ -1,6 +1,7 @@
 const CiceronePlugin = require('./lib/plugin/CiceronePlugin');
 const Path = require('./lib/path/Path');
-const { PathElement, ParentPathElement } = require('./lib/path/PathElement');
+const PathElement = require('./lib/path/PathElement');
+const ParentPathElement = require('./lib/path/ParentPathElement');
 const ActionRegistry = require('./lib/path/ActionRegistry');
 const PathStructureRegistry = require('./lib/path/PathStructureRegistry');
 const CiceroneSettings = require('./lib/settings/CiceroneSettings');
