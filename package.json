@@ -1,6 +1,6 @@
 {
     "name": "mineflayer-cicerone",
-    "version": "1.0.4",
+    "version": "2.0.0",
     "description": "An advanced plugin for navigation and action execution for Mineflayer.",
     "main": "index.js",
     "types": "index.d.ts",
