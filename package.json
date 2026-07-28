@@ -3,8 +3,10 @@
     "version": "1.0.4",
     "description": "An advanced plugin for navigation and action execution for Mineflayer.",
     "main": "index.js",
+    "types": "index.d.ts",
     "files": [
         "index.js",
+        "index.d.ts",
         "lib"
     ],
     "scripts": {
