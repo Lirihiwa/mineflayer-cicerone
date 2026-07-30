@@ -18,7 +18,6 @@ test('Isolated Path construction and fluent API chaining', () => {
 
     // Test chaining is works
     path.add(new Vec3(1, 0, 0), 'move').add(new Vec3(2, 0, 0), 'dig');
-    console.log(path.pathElements);
     assert.strictEqual(path.pathElements.length, 2);
     assert.strictEqual(path.pathElements[1].children.length, 1);
 });
