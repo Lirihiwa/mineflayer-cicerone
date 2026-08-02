@@ -6,7 +6,6 @@ declare module 'mineflayer' {
         cicerone: {
             settings: CiceroneSettings;
             actionRegistry: ActionRegistry;
-            structureRegistry: PathStructureRegistry;
             createPath(): Path;
             resolve(path: Path): Promise<void>;
             revert(path: Path): Promise<void>;
@@ -33,11 +32,17 @@ export class CiceroneError extends Error {
 }
 
 export class CiceroneSettings {
+    utils: {
+        harvestTool: Function;
+        getReferenceBlockAndFaceVector: Function;
+        equipBuildingBlock: Function;
+    };
     constructor(options?: {
         buildingBlocks?: string[];
         movementTimeoutMs?: number;
         movementPrecision?: number;
         buildUpThreshold?: number;
+        minDurability?: number;
     });
     setBuildingBlocks(blocks: string[]): void;
     getBuildingBlocks(): string[];
@@ -48,73 +53,44 @@ export class CiceroneSettings {
     getMovementPrecision(): number;
     setBuildUpThreshold(threshold: number): void;
     getBuildUpThreshold(): number;
+    setMinDurability(minDurability: number): void;
+    getMinDurability(): number;
 }
 
 export class PathElement {
     position: Vec3;
     type: string;
-    constructor(position: Vec3, type: string);
+    state: any;
+    constructor(position: Vec3, type: string, state?: any);
     getInfo(): string;
-    resolve(actionRegistry: ActionRegistry): Promise<void>;
-    revert(actionRegistry: ActionRegistry): Promise<void>;
-}
-
-export class ParentPathElement extends PathElement {
-    children: PathElement[];
-    constructor(position: Vec3, type: string);
-    addChild(child: PathElement): void;
-    hasChildren(): boolean;
+    run(actionRegistry: ActionRegistry): Promise<void>;
+    reverse(actionRegistry: ActionRegistry): Promise<void>;
 }
 
 export class ActionRegistry {
     constructor();
     register(
         type: string,
-        resolveHandler: (position: Vec3) => Promise<void>,
-        revertHandler?: (position: Vec3) => Promise<void>,
+        runHandler: (position: Vec3, element?: PathElement) => Promise<void>,
+        reverseHandler?: (position: Vec3, element?: PathElement) => Promise<void>,
     ): void;
     unregister(type: string): boolean;
     has(type: string): boolean;
     list(): string[];
-    resolve(type: string, position: Vec3): Promise<void>;
-    revert(type: string, position: Vec3): Promise<void>;
-}
-
-export interface StructureDescriptor {
-    createsNewStandPoint: boolean;
-    standOffset: Vec3 | null;
-    relativeToLastParent: boolean;
-    standPointType: string | null;
-    attachAsChildOfNewStandPoint: boolean;
-}
-
-export class PathStructureRegistry {
-    constructor();
-    register(type: string, descriptor: Partial<StructureDescriptor>): void;
-    unregister(type: string): boolean;
-    get(type: string): StructureDescriptor;
-    has(type: string): boolean;
+    run(type: string, position: Vec3, element?: PathElement): Promise<void>;
+    reverse(type: string, position: Vec3, element?: PathElement): Promise<void>;
 }
 
 export class Path {
-    pathElements: ParentPathElement[];
-    lastPathElement: ParentPathElement;
-    constructor(
-        startPosition: Vec3,
-        actionRegistry: ActionRegistry,
-        structureRegistry: PathStructureRegistry,
-    );
+    elements: PathElement[];
+    constructor(actionRegistry: ActionRegistry);
     add(position: Vec3, type: string): this;
-    reset(startPosition: Vec3): void;
-    resolve(): Promise<void>;
-    revert(): Promise<void>;
+    reset(): void;
+    run(): Promise<void>;
+    reverse(): Promise<void>;
     clone(): Path;
-    toJSON(): ParentPathElement[];
-    static fromJSON(
-        json: any,
-        actionRegistry: ActionRegistry,
-        structureRegistry: PathStructureRegistry,
-    ): Path;
+    toJSON(): PathElement[];
+    static fromJSON(json: any, actionRegistry: ActionRegistry): Path;
 }
 
 export default function plugin(bot: Bot, options?: any): void;
