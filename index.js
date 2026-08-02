@@ -1,9 +1,7 @@
 const CiceronePlugin = require('./lib/plugin/CiceronePlugin');
 const Path = require('./lib/path/Path');
 const PathElement = require('./lib/path/PathElement');
-const ParentPathElement = require('./lib/path/ParentPathElement');
 const ActionRegistry = require('./lib/path/ActionRegistry');
-const PathStructureRegistry = require('./lib/path/PathStructureRegistry');
 const CiceroneSettings = require('./lib/settings/CiceroneSettings');
 const CiceroneError = require('./lib/errors/CiceroneError');
 
@@ -24,9 +22,7 @@ function plugin(bot, options) {
 // in tests, or when working with multiple bots).
 plugin.Path = Path;
 plugin.PathElement = PathElement;
-plugin.ParentPathElement = ParentPathElement;
 plugin.ActionRegistry = ActionRegistry;
-plugin.PathStructureRegistry = PathStructureRegistry;
 plugin.CiceroneSettings = CiceroneSettings;
 plugin.CiceroneError = CiceroneError;
 
